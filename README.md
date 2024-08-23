@@ -1,4 +1,8 @@
 # MovieCatalog
+
+O APP: Este é um aplicativo conceito, de estudos, desenvolvido em conjunto com o curso DevSpace.
+O que eu contribui: Para treinar, resolvi aproveitar um pouco mais da API e utilizar mais alguns itens do endpoint de detalhes, afim de melhorar a experiência do usuário, então adicionei na tela de detalhes o tempo de duração, data de lançamento, gênero e a nota do filme.
+
 MovieCatalog é um aplicativo Android que permite aos usuários explorar filmes populares em tempo real, obtendo informações diretamente da API do The Movie Database (TMDB). Com uma interface amigável, os usuários podem visualizar detalhes de filmes, incluindo sinopse, data de lançamento, classificação, e muito mais.
 
 Funcionalidades
