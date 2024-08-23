@@ -1,5 +1,5 @@
-# CineNow APP
-CineNow é um aplicativo Android que permite aos usuários explorar filmes populares em tempo real, obtendo informações diretamente da API do The Movie Database (TMDB). Com uma interface amigável, os usuários podem visualizar detalhes de filmes, incluindo sinopse, data de lançamento, classificação, e muito mais.
+# MovieCatalog
+MovieCatalog é um aplicativo Android que permite aos usuários explorar filmes populares em tempo real, obtendo informações diretamente da API do The Movie Database (TMDB). Com uma interface amigável, os usuários podem visualizar detalhes de filmes, incluindo sinopse, data de lançamento, classificação, e muito mais.
 
 Funcionalidades
 - Filmes Populares: Visualize uma lista de filmes populares atualizada diariamente.
@@ -30,7 +30,7 @@ Funcionalidades
 ```
 The MIT License (MIT)
 
-Copyright (c) 2024 Roque Buarque Junior
+Copyright (c) 2024 Julio Cezar Grassi Teixeira
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
