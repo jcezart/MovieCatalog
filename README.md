@@ -12,7 +12,7 @@ Funcionalidades
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
-<img src="https://github.com/user-attachments/assets/e0dd429c-3ad8-450a-8028-4ae6f3ed2702" width=260/> <img src="https://github.com/user-attachments/assets/00c19748-e200-43e7-8faf-f5b519bfaa2f" width=260/> <img src="https://github.com/user-attachments/assets/ca96a3c8-a63e-4c7a-b4cb-2c42c3fbaf77" width=260/>
+<img src="https://github.com/user-attachments/assets/e0dd429c-3ad8-450a-8028-4ae6f3ed2702" width=260/> <img src="https://github.com/user-attachments/assets/ca96a3c8-a63e-4c7a-b4cb-2c42c3fbaf77" width=260/>
 
 
 
