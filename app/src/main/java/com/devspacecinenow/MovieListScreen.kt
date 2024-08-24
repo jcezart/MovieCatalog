@@ -267,10 +267,6 @@ private fun MovieItem(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
-        Text(
-            text = movieDTO.overview,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+
     }
 }

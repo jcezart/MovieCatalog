@@ -4,3 +4,8 @@ package com.devspacecinenow
 data class MovieResponse(
     val results: List<MovieDTO>
 )
+
+data class Genre(
+    val id: Int,
+    val name: String
+)
