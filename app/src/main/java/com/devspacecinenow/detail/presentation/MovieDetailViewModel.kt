@@ -8,13 +8,11 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.devspacecinenow.common.data.RetrofitClient
 import com.devspacecinenow.common.model.MovieDTO
 import com.devspacecinenow.detail.data.DetailService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MovieDetailViewModel(
     private val detailService: DetailService
@@ -25,22 +23,15 @@ class MovieDetailViewModel(
 
     fun fetchMovieDetail(movieId: String){
         if (_uiMovie.value == null) {
-        detailService.getMovieById(movieId).enqueue(
-            object : Callback<MovieDTO> {
-                override fun onResponse(call: Call<MovieDTO>, response: Response<MovieDTO>) {
-                    if (response.isSuccessful) {
-                        _uiMovie.value = response.body()
-                    } else {
-                        Log.d("MovieDetailScreen", "Request Error :: ${response.errorBody()}")
-                    }
+            viewModelScope.launch(Dispatchers.IO) {
+                val response = detailService.getMovieById(movieId)
+                if (response.isSuccessful) {
+                    _uiMovie.value = response.body()
+                } else {
+                    Log.d("MovieDetailScreen", "Request Error :: ${response.errorBody()}")
                 }
-
-                override fun onFailure(call: Call<MovieDTO>, t: Throwable) {
-                    Log.d("MovieDetailScreen", "Network Error :: ${t.message}")
-                }
-
             }
-        ) }
+            }
     }
 
     fun cleanMovieId(){
