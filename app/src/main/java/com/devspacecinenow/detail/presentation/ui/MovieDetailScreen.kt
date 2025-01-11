@@ -23,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,9 +39,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import com.devspacecinenow.ApiService
 import com.devspacecinenow.common.model.MovieDTO
 import com.devspacecinenow.common.data.RetrofitClient
+import com.devspacecinenow.detail.presentation.MovieDetailViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,44 +49,12 @@ import retrofit2.Response
 @Composable
 fun MovieDetailScreen(
     movieId: String,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    detailViewModel: MovieDetailViewModel,
 ) {
-    var movieDto by remember { mutableStateOf<MovieDTO?>(null) }
-    //var movieDto2 by remember { mutableStateOf<MovieDTO2?>(null) }
-    val apiService = RetrofitClient.retrofitInstance.create(ApiService::class.java)
+    val movieDto by detailViewModel.uiMovie.collectAsState()
+    detailViewModel.fetchMovieDetail(movieId)
 
-    apiService.getMovieById(movieId).enqueue(
-        object : Callback<MovieDTO> {
-            override fun onResponse(call: Call<MovieDTO>, response: Response<MovieDTO>) {
-                if (response.isSuccessful) {
-                    movieDto = response.body()
-                } else {
-                    Log.d("MovieDetailScreen", "Request Error :: ${response.errorBody()}")
-                }
-            }
-
-            override fun onFailure(call: Call<MovieDTO>, t: Throwable) {
-                Log.d("MovieDetailScreen", "Network Error :: ${t.message}")
-            }
-
-        }
-    )
-
-//    apiService.getMovieProvider(movieId).enqueue(
-//        object : Callback<MovieDTO2> {
-//            override fun onResponse(call: Call<MovieDTO2>, response: Response<MovieDTO2>) {
-//                if (response.isSuccessful) {
-//                    movieDto2 = response.body()
-//                } else {
-//                    Log.d("MovieDetailScreen", "Request Error :: ${response.errorBody()}")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<MovieDTO2>, t: Throwable) {
-//                Log.d("MovieDetailScreen", "Network Error :: ${t.message}")
-//            }
-//        }
-//    )
 
     movieDto?.let {
         Column(
@@ -96,6 +65,7 @@ fun MovieDetailScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = {
+                    detailViewModel.cleanMovieId()
                     navHostController.popBackStack()
                 }) {
                     Icon(
@@ -112,12 +82,6 @@ fun MovieDetailScreen(
             MovieDetailContent(it)
         }
     }
-//    movieDto2?.let {
-//        Column {
-//            MovieProviderContent(it)
-//        }
-//
-//    }
 }
 
 @SuppressLint("DefaultLocale")

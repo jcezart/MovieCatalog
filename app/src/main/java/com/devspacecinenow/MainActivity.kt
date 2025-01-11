@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.devspacecinenow.detail.presentation.MovieDetailViewModel
 import com.devspacecinenow.list.presentation.MovieListViewModel
 import com.devspacecinenow.ui.theme.CineNowTheme
 import retrofit2.Call
@@ -44,6 +45,7 @@ import retrofit2.Response
 class MainActivity : ComponentActivity() {
 
     private val listViewModel by viewModels<MovieListViewModel> { MovieListViewModel.Factory}
+    private val detailViewModel by viewModels<MovieDetailViewModel> {MovieDetailViewModel.Factory  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +58,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     //está chamando o MovieCatalogApp do arquivo MovieCatalogNavigation
                     MovieCatalogApp(
-                        listViewModel = listViewModel)
+                        listViewModel = listViewModel,
+                        detailViewModel = detailViewModel)
                 }
             }
         }

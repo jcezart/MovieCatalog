@@ -10,7 +10,4 @@ interface DetailService {
     @GET("{movie_id}?language=en-US")
     fun getMovieById(@Path("movie_id") movieId: String): Call<MovieDTO>
 
-//    @GET("{movie_id}/watch/providers")
-//    fun getMovieProvider(@Path("movie_id") movieId: String): Call<MovieDTO2>
-
 }
