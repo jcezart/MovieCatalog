@@ -1,4 +1,4 @@
-package com.devspacecinenow
+package com.devspacecinenow.common.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -20,13 +20,13 @@ data class MovieDTO(
         get() = "https://image.tmdb.org/t/p/w500$posterPath"
 }
 
-data class MovieDTO2(
-    val id: Int,
-    @SerializedName("provider_name") val providerName: String,
-    @SerializedName("logo_path") val logoProviderPath: String
-
-) {
-    val logoProviderFullPath: String
-        get() = "https://image.tmdb.org/t/p/original$logoProviderPath"
-}
+//data class MovieDTO2(
+//    val id: Int,
+//    @SerializedName("provider_name") val providerName: String,
+//    @SerializedName("logo_path") val logoProviderPath: String
+//
+//) {
+//    val logoProviderFullPath: String
+//        get() = "https://image.tmdb.org/t/p/original$logoProviderPath"
+//}
 

@@ -1,5 +1,6 @@
-package com.devspacecinenow
+package com.devspacecinenow.common.data
 
+import com.devspacecinenow.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit

@@ -24,13 +24,14 @@ android {
         val localProperties = project.rootProject.file("local.properties")
         val properties = Properties()
         properties.load(localProperties.inputStream())
-
-        val apiKey = properties.getProperty("API_KEY")
+//
+//        val apiKey = properties.getProperty("API_KEY")
+          //val apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMzRmMThiZjBkNTgwMmMyMWFmNzU5ODBmZjg3MmFkYSIsIm5iZiI6MTcxNzE2ODI3My43MDU5OTk5LCJzdWIiOiI2NjU5ZTg5MTQ2ZjMwZjEzNzQ3NTIyMTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.nEulWxTviuKYop8I_egRKMzMXXVXOwNx_LygrLAX9Dc'
 
         buildConfigField(
             type = "String",
             name = "API_KEY",
-            value = apiKey
+            value = "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMzRmMThiZjBkNTgwMmMyMWFmNzU5ODBmZjg3MmFkYSIsIm5iZiI6MTcxNzE2ODI3My43MDU5OTk5LCJzdWIiOiI2NjU5ZTg5MTQ2ZjMwZjEzNzQ3NTIyMTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.nEulWxTviuKYop8I_egRKMzMXXVXOwNx_LygrLAX9Dc\""
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

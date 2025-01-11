@@ -1,4 +1,4 @@
-package com.devspacecinenow
+package com.devspacecinenow.common.model
 
 //MovieResponse é uma classe que representa a estrutura geral da resposta da API
 data class MovieResponse(
