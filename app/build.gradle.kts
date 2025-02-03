@@ -28,7 +28,9 @@ android {
         buildConfigField(
             type = "String",
             name = "API_KEY",
-            value = "\"COLOQUE A SUA CHAVE AQUI DENTRO\""
+            value = "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMzRmMThiZjBkNTgwMmMyMWFmNzU5ODBmZjg3MmFkYSIsIm5iZiI6MTcxNzE2ODI3My" +
+                    "43MDU5OTk5LCJzdWIiOiI2NjU5ZTg5MTQ2ZjMwZjEzNzQ3NTIyMTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.nEulWxTviuKYop8I_egRKMzMXXVXOwNx_LygrLAX9Dc\""
+            //value = "\"COLOQUE A SUA CHAVE AQUI DENTRO\""
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -84,6 +86,12 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("io.coil-kt:coil-compose:2.6.0")
+
+    testImplementation("org.jetbrains.kotlinx:coroutines-test:1.8.0")
+    testImplementation("org.mockito:mockito-core:5.7.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("app.cash.turbine:turbine:1.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

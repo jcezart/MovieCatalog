@@ -1,5 +1,6 @@
 package com.devspacecinenow.list.presentation.ui
 
+import android.graphics.Color
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -19,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -55,11 +57,11 @@ fun MovieListScreen(navController: NavHostController,
 
 @Composable
 private fun MovieListContent(
-    nowPlayingMovies: List<MovieDTO>,
+    nowPlayingMovies: MovieListUiState,
     topRatedMovies: List<MovieDTO>,
     upComingMovies: List<MovieDTO>,
     popularMovies: List<MovieDTO>,
-    onClick: (MovieDTO) -> Unit,
+    onClick: (MovieUiData) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -75,27 +77,27 @@ private fun MovieListContent(
 
         MovieSession(
             label = "Now Playing",
-            movieList = nowPlayingMovies,
+            movieListUiState = nowPlayingMovies,
             onClick = onClick
         )
-
-        MovieSession(
-            label = "Top Rated",
-            movieList = topRatedMovies,
-            onClick = onClick
-        )
-
-        MovieSession(
-            label = "Upcoming",
-            movieList = upComingMovies,
-            onClick = onClick
-        )
-
-        MovieSession(
-            label = "Popular",
-            movieList = popularMovies,
-            onClick = onClick
-        )
+//
+//        MovieSession(
+//            label = "Top Rated",
+//            movieList = topRatedMovies,
+//            onClick = onClick
+//        )
+//
+//        MovieSession(
+//            label = "Upcoming",
+//            movieList = upComingMovies,
+//            onClick = onClick
+//        )
+//
+//        MovieSession(
+//            label = "Popular",
+//            movieList = popularMovies,
+//            onClick = onClick
+//        )
 
     }
 }
@@ -103,9 +105,10 @@ private fun MovieListContent(
 @Composable
 private fun MovieSession(
     label: String,
-    movieList: List<MovieDTO>,
-    onClick: (MovieDTO) -> Unit
+    movieListUiState: MovieListUiState,
+    onClick: (MovieUiData) -> Unit
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -117,15 +120,27 @@ private fun MovieSession(
             text = label
         )
         Spacer(modifier = Modifier.size(8.dp))
-        MovieList(movieList = movieList, onClick = onClick)
+
+        if(movieListUiState.isLoading){
+
+        } else if (movieListUiState.isError) {
+            Text(
+                color = Color.RED,
+                text = "Something went wrong"
+            )
+        } else {
+            MovieList(movieList = movieListUiState.list, onClick = onClick)
+        }
+
 
     }
 }
 
+
 @Composable
 private fun MovieList(
-    movieList: List<MovieDTO>,
-    onClick: (MovieDTO) -> Unit
+    movieList: List<MovieUiData>,
+    onClick: (MovieUiData) -> Unit
 ) {
     LazyRow {
         items(movieList) {
@@ -139,8 +154,8 @@ private fun MovieList(
 
 @Composable
 private fun MovieItem(
-    movieDTO: MovieDTO,
-    onClick: (MovieDTO) -> Unit
+    movieDTO: MovieUiData,
+    onClick: (MovieUiData) -> Unit
 ) {
 
     Column(
@@ -156,7 +171,7 @@ private fun MovieItem(
                 .width(120.dp)
                 .height(150.dp),
             contentScale = ContentScale.Crop,
-            model = movieDTO.posterFullPath,
+            model = movieDTO.image,
             contentDescription = "${movieDTO.title} Poster Image",
         )
         Spacer(modifier = Modifier.size(4.dp))

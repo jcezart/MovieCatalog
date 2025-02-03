@@ -8,6 +8,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.devspacecinenow.common.data.RetrofitClient
 import com.devspacecinenow.common.model.MovieDTO
 import com.devspacecinenow.list.data.ListService
+import com.devspacecinenow.list.presentation.ui.MovieListUiState
+import com.devspacecinenow.list.presentation.ui.MovieUiData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,8 +19,8 @@ class MovieListViewModel(
     private val listService: ListService
 ) : ViewModel() {
 
-    private val _uiNowPlaying = MutableStateFlow<List<MovieDTO>>(emptyList())
-    val uiNowPlaying: StateFlow<List<MovieDTO>> = _uiNowPlaying
+    private val _uiNowPlaying = MutableStateFlow(MovieListUiState())
+    val uiNowPlaying: StateFlow<MovieListUiState> = _uiNowPlaying
 
     private val _uiTopRated = MutableStateFlow<List<MovieDTO>>(emptyList())
     val uiTopRated: StateFlow<List<MovieDTO>> = _uiTopRated
@@ -31,26 +33,52 @@ class MovieListViewModel(
 
     init {
         fetchNowPlayingMovies()
-        fetchTopRatedMovies()
-        fetchPopularMovies()
-        fetchUpcomingMovies()
+       // fetchTopRatedMovies()
+       // fetchPopularMovies()
+       // fetchUpcomingMovies()
     }
 
     private fun fetchNowPlayingMovies(){
+        _uiNowPlaying.value = MovieListUiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
-            val response = listService.getNowPlayingMovies()
-            if (response.isSuccessful) {
-                val movies = response.body()?.results
-                if (movies != null) {
-                    _uiNowPlaying.value = movies
+            try {
+                val response = listService.getNowPlayingMovies()
+                if (response.isSuccessful) {
+                    val movies = response.body()?.results
+                    if (movies != null) {
+                        val movieUiDataList = movies.map { movieDTO -> MovieUiData(
+                            id = movieDTO.id,
+                            title = movieDTO.title,
+                            overview = movieDTO.overview,
+                            image = movieDTO.posterFullPath,
+                            releaseDate = movieDTO.releaseDate,
+                            runtime = movieDTO.runtime,
+                            genres = movieDTO.genres,
+                            ratio = movieDTO.ratio
+                        ) }
+                        _uiNowPlaying.value = MovieListUiState(list = movieUiDataList)
+
+                    }
+                } else {
+                    _uiNowPlaying.value = MovieListUiState(isError = true)
+                    Log.d("MovieListViewModel", "Request Erro :: ${response.errorBody()}")
                 }
-            } else {
-                Log.d("MovieListViewModel", "Request Erro :: ${response.errorBody()}")
+            } catch (ex: Exception){
+                ex.printStackTrace()
+                _uiNowPlaying.value = MovieListUiState(isError = true)
             }
+
         }
     }
 
     private fun fetchTopRatedMovies(){
+        //GWT
+        // Given create new instance of viewmodel
+
+        // When collect uiTopRated state flow
+
+        // Then verify if date is as expected
+
         viewModelScope.launch(Dispatchers.IO) {
             val response = listService.getTopRatedMovies()
             if (response.isSuccessful) {
