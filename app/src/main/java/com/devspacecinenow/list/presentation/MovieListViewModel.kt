@@ -11,9 +11,11 @@ import com.devspacecinenow.list.data.ListService
 import com.devspacecinenow.list.presentation.ui.MovieListUiState
 import com.devspacecinenow.list.presentation.ui.MovieUiData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 
 class MovieListViewModel(
     private val listService: ListService
@@ -42,19 +44,21 @@ class MovieListViewModel(
         _uiNowPlaying.value = MovieListUiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                delay(1000)
                 val response = listService.getNowPlayingMovies()
                 if (response.isSuccessful) {
                     val movies = response.body()?.results
                     if (movies != null) {
-                        val movieUiDataList = movies.map { movieDTO -> MovieUiData(
-                            id = movieDTO.id,
-                            title = movieDTO.title,
-                            overview = movieDTO.overview,
-                            image = movieDTO.posterFullPath,
-                            releaseDate = movieDTO.releaseDate,
-                            runtime = movieDTO.runtime,
-                            genres = movieDTO.genres,
-                            ratio = movieDTO.ratio
+                        val movieUiDataList = movies.map { movieDTO ->
+                            MovieUiData(
+                                id = movieDTO.id,
+                                title = movieDTO.title,
+                                overview = movieDTO.overview,
+                                image = movieDTO.posterFullPath,
+                                releaseDate = movieDTO.releaseDate,
+                                runtime = movieDTO.runtime ?: "",
+                                genres = movieDTO.genres ?: emptyList(),
+                                ratio = movieDTO.ratio
                         ) }
                         _uiNowPlaying.value = MovieListUiState(list = movieUiDataList)
 
@@ -65,9 +69,16 @@ class MovieListViewModel(
                 }
             } catch (ex: Exception){
                 ex.printStackTrace()
+                delay(1000)
+                if (ex is UnknownHostException){
+                    _uiNowPlaying.value = MovieListUiState(
+                        isError = true,
+                        errorMessage = "No internet connection"
+                    )
+                } else {
                 _uiNowPlaying.value = MovieListUiState(isError = true)
+                }
             }
-
         }
     }
 

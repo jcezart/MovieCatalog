@@ -12,8 +12,8 @@ data class MovieDTO(
     val overview: String,
     @SerializedName("poster_path") val posterPath: String,
     @SerializedName("release_date") val releaseDate: String,
-    val runtime: String,
-    @SerializedName("genres") val genres: List<Genre>,
+    val runtime: String?,
+    @SerializedName("genres") val genres: List<Genre>?,
     @SerializedName("vote_average") val ratio: Float
 ) {
     val posterFullPath: String

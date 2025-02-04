@@ -144,7 +144,7 @@ private fun MovieDetailContent(movie: MovieDTO) {
             Spacer(modifier = Modifier.size(4.dp))
 
             Text(
-                text = movie.genres.firstOrNull()?.name ?: "Desconhecido"
+                text = movie.genres?.firstOrNull()?.name ?: "Desconhecido"
             )
 
             Spacer(modifier = Modifier.size(10.dp))
